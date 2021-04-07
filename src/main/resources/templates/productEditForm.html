@@ -9,42 +9,49 @@
 
     <div class="card">
         <div class="card-header card bg-info text-white">
-            <h2> Edit form </h2>
+            <h2> Edit Form </h2>
         </div>
+
         <div class="card-body">
+
             <form th:action="@{/admin/product/edit}" method="post" th:object="${dto}">
                 <div class="col-sm-12">
+
+                    <div class="form-group">
+                        <label>Product ID</label>
+                        <label class="form-control bg-light"><span th:text="*{id}"></span></label>
+                        <p><input type="hidden" class="form-control" th:field="*{id}"/></p>
+                    </div>
                     <div class="row">
-                        <div class="form-group">
-                            <label>Product Id</label>
-                            <label class="form-control bg-light"><span th:text="*{id}"></span></label>
-                            <p><input type="hidden" class="form-control" th:field="*{id}"/></p>
-                        </div>
 
                         <div class="col-sm-6 form-group">
                             <label>Product Name</label>
                             <input type="text" th:field="*{name}" placeholder="Enter Product Name Here..." class="form-control">
-                            <p class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
                         </div>
 
                         <div class="col-sm-6 form-group">
                             <label>Price</label>
-                            <input type="number"  th:field="*{price}" placeholder="Enter Product Price Here..." class="form-control">
-                            <p class="alert alert-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
+                            <input type="number" th:field="*{price}" placeholder="Enter Price Here..." class="form-control">
                         </div>
+
                     </div>
 
-                    <div class="row">
+                    <div class="form-group">
                         <label>Description</label>
-                        <textarea th:field="*{productDetailsDto.description}" placeholder="Enter Description Here..." rows="3" class="form-control"></textarea>
+                        <textarea th:field="*{productDetailsDto.description}" placeholder="Enter Description Here..." class="form-control"></textarea>
                     </div>
                     <hr/>
-                    <button type="submit" class="btn btn-primary btn-block mb-3"> Edit Changes </button>
+                    <button type="submit" class="btn btn-warning btn-block mb-3">Save</button>
+
                 </div>
             </form>
         </div>
-        <div class="card-footer"></div>
+
+        <div class="card-footer">
+
+        </div>
     </div>
+
 
 </div>
 

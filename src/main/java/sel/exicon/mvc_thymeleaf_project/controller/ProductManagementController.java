@@ -139,9 +139,28 @@ public class ProductManagementController {
 
 
     @GetMapping("/edit/{id}")
-    public String showEdit(@PathVariable("id") Integer id, Model model){
-        model.addAttribute("id", id);
+    public String showEditForm(@PathVariable("id") Integer id, Model model) {
+
+        ProductDto dto = productService.findById(id);
+
+        model.addAttribute("dto", dto);
         return "productEditForm";
+    }
+
+
+    @PostMapping("/edit")
+    public String edit(@ModelAttribute("dto") @Valid ProductDto productDto,RedirectAttributes redirectAttributes) {
+        System.out.println("productDto.toString() = " + productDto.toString());
+
+        ProductDto findByIdDto = productService.findById(productDto.getId());
+
+        productDto.getProductDetailsDto().setImage(findByIdDto.getProductDetailsDto().getImage());
+        productService.saveOrUpdate(productDto);
+
+        redirectAttributes.addFlashAttribute("message","Update Operation is completed");
+        redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+
+        return "redirect:/admin/product/";
     }
 
 
