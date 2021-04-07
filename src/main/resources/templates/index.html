@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{project.title}"></title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css} "/>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <style>
+        body{
+            padding-top: 100px;
+        }
+    </style>
+</head>
+<body>
+<nav th:insert="fragments/navbar :: nav_fragment"></nav>
+
+<div class="container p-3 my-3 bg-primary text-white">
+    <h1>Index Page</h1>
+    <p>welcome to spring boot mvcc thymeleaf project</p>
+</div>
+
+<footer th:insert="fragments/footer :: footer_fragment"></footer>
+</body>
+</html>

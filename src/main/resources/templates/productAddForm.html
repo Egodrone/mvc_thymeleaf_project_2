@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/headerResources :: header_resources"></head>
+
+<body>
+<nav th:insert="fragments/navbar :: nav_fragment" ></nav>
+
+<div class="container">
+
+    <div class="card">
+        <div class="card-header card bg-info text-white">
+            <h2>Registration Form</h2>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/admin/product/add}" method="post" th:object="${dto}">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>Product Name</label>
+                            <input type="text" th:field="*{name}" placeholder="Enter Product Name Here..." class="form-control">
+                            <p class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                        </div>
+
+                        <div class="col-sm-6 form-group">
+                            <label>Price</label>
+                            <input type="number"  th:field="*{price}" placeholder="Enter Product Price Here..." class="form-control">
+                            <p class="alert alert-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label>Description</label>
+                        <textarea th:field="*{productDetailsDto.description}" placeholder="Enter Description Here..." rows="3" class="form-control"></textarea>
+                    </div>
+                    <hr/>
+                    <button type="submit" class="btn btn-primary btn-block mb-3">Save</button>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer"></div>
+    </div>
+
+</div>
+
+<footer th:insert="fragments/footer :: footer_fragment"></footer>
+</body>
+</html>

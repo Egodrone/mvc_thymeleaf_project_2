@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{project.title}"></title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css} "/>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <style>
+        body{
+            padding-top: 100px;
+        }
+    </style>
+</head>
+<body>
+<nav th:insert="fragments/navbar :: nav_fragment"></nav>
+
+<div class="container">
+
+    <div class="card">
+        <div class="card-header card bg-info text-white">
+            <h2>Product List</h2>
+            <p>
+                <a th:href="@{/admin/product/addForm}" class="btn btn-success" >Add Product</a>
+            </p>
+        </div>
+
+        <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
+
+        <div class="card-body">
+            <div th:if="${productDtoList.isEmpty()}" >
+                No Product Available.
+            </div>
+
+            <div th:unless="${productDtoList.isEmpty()}">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th th:text="#{product.id.label}"></th>
+                        <th th:text="#{product.name.label}"></th>
+                        <th th:text="#{product.price.label}"></th>
+                        <th>Details</th>
+                        <th>Add Image</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="productDto : ${productDtoList}">
+                        <td>
+                            <span th:text="${productDto.id}"></span>
+                        </td>
+                        <td>
+                            <span th:text="${productDto.name}"></span>
+                        </td>
+                        <td style="background-color: red;font-size: 30px;" th:if="${productDto.price <= 10}">$<span th:text="${#numbers.formatDecimal(productDto.price,1,2)}"></span></td>
+                        <td th:unless="${productDto.price <= 10}">$<span th:text="${#numbers.formatDecimal(productDto.price,1,2)}"></span></td>
+                        <td>
+                            <a href="#" class="btn btn-info" th:href="@{/admin/product/find/{id} (id=${productDto.id})}" >Details</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/admin/product/uploadImageForm/{id} (id=${productDto.id})}" class="btn btn-success" >Add Image</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/admin/product/edit/{id} (id=${productDto.id})}" class="btn btn-warning" >Edit</a>
+                        </td>
+                        <td>
+                            <a href="#" class="btn btn-danger" th:href="@{/admin/product/delete/{id} (id=${productDto.id})}" >Delete</a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card-footer">
+            <a href="#" class="btn btn-danger" >Back</a>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+</div>
+
+<footer th:insert="fragments/footer :: footer_fragment"></footer>
+</body>
+</html>
